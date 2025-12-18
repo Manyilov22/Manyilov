@@ -1,1 +1,25 @@
-хотел бы сдалать игру по типу "Traffic Racer" (игра, в которой ты управлешь машиной от 3 лица и пытаешься не врезаться вдругие и проехать как можно дальше и заработать как можно блльше монет) монеты сиожешь обменять на какието другие машины
+#хотел бы сдалать игру по типу "Traffic Racer" (игра, в которой ты управлешь машиной от 3 лица и пытаешься не врезаться вдругие и проехать как можно дальше и заработать как можно блльше монет) монеты сиожешь обменять на какието другие машины
+import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((400, 300))
+pygame.display.set_caption("Мое окно на Pygame")
+BACKGROUND = (30, 30, 50)
+
+running = True
+while running:
+    # Обработка событий
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+    screen.fill(BACKGROUND)
+  
+    font = pygame.font.SysFont('arial', 24)
+    text = font.render('Привет! Окно работает!', True, (255, 255, 255))
+    screen.blit(text, (50, 100))
+  
+    pygame.display.flip()
+pygame.quit()
