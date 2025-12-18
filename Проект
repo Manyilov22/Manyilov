@@ -3,12 +3,11 @@ import pygame
 
 pygame.init()
 screen = pygame.display.set_mode((400, 300))
-pygame.display.set_caption("Мое окно на Pygame")
+pygame.display.set_caption("Manyilov")
 BACKGROUND = (30, 30, 50)
 
 running = True
 while running:
-    # Обработка событий
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
