@@ -131,4 +131,35 @@ class GameWindow:
             if random.random() < 0.5:
                 self.spawn_enemy()
 
+        # Спавн монет
+        self.coin_timer += 1
+        if self.coin_timer > 30:
+            self.coin_timer = 0
+            if random.random() < 0.3:
+                self.spawn_coin()
         
+        # Обновление врагов
+        for enemy in self.enemies[:]:
+            enemy.y += 5
+            enemy_rect = pygame.Rect(enemy.x, enemy.y, 40, 70)
+            
+            if enemy.y > SCREEN_HEIGHT:
+                self.enemies.remove(enemy)
+            elif self.player_rect.colliderect(enemy_rect):
+                self.enemies.remove(enemy)
+                self.lives -= 1
+                if self.lives <= 0:
+                    self.game_over = True
+                    self.update_high_score()
+        
+        # Обновление монет
+        for coin in self.coins[:]:
+            coin.y += 5
+            coin_rect = pygame.Rect(coin.x, coin.y, 25, 25)
+            
+            if coin.y > SCREEN_HEIGHT:
+                self.coins.remove(coin)
+            elif self.player_rect.colliderect(coin_rect):
+                self.coins.remove(coin)
+                self.coins_collected += 10
+                self.player_data['coins'] += 10
