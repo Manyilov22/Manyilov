@@ -1,22 +1,25 @@
+import tkinter as tk
+from menu_window import MenuWindow
 import pygame
 
-pygame.init()
-screen = pygame.display.set_mode((400, 300))
-pygame.display.set_caption("Manyilov")
-BACKGROUND = (30, 30, 50)
+def main():
+    """Запуск игры"""
+    print("Запуск Traffic Racer...")
+    
+    # Инициализация pygame
+    pygame.init()
+    
+    # Создание и запуск главного меню
+    root = tk.Tk()
+    app = MenuWindow(root)
+    root.mainloop()
+    
+    # Завершение работы
+    pygame.quit()
+    print("Игра закрыта")
 
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                running = False
-    screen.fill(BACKGROUND)
-  
-    font = pygame.font.SysFont('arial', 24)
-    text = font.render('Привет! Окно работает!', True, (255, 255, 255))
+if __name__ == "__main__":
+    main()
     screen.blit(text, (50, 100))
   
     pygame.display.flip()
