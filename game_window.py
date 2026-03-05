@@ -112,4 +112,4 @@ class GameWindow:
         if self.game_over:
             return
 
-        # Движение игрока
+        # Движение игрока(в разработке)
