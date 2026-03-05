@@ -120,3 +120,15 @@ class GameWindow:
         
         self.player_rect.x = self.player_x
         
+        # Пройденное расстояние
+        self.distance += self.player_speed / 10
+        self.score = int(self.distance * 10 + self.coins_collected * 5)
+        
+        # Спавн врагов
+        self.spawn_timer += 1
+        if self.spawn_timer > 40:
+            self.spawn_timer = 0
+            if random.random() < 0.5:
+                self.spawn_enemy()
+
+        
