@@ -113,3 +113,10 @@ class GameWindow:
             return
 
         # Движение игрока(в разработке)
+        if self.move_left and self.player_x > SCREEN_WIDTH // 2 - ROAD_WIDTH // 2:
+            self.player_x -= self.player_speed
+        if self.move_right and self.player_x < SCREEN_WIDTH // 2 + ROAD_WIDTH // 2 - 40:
+            self.player_x += self.player_speed
+        
+        self.player_rect.x = self.player_x
+        
