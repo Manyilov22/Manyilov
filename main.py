@@ -1,6 +1,11 @@
 import tkinter as tk
-from menu_window import MenuWindow
 import pygame
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(__file__))
+
+from menu_window import MenuWindow
 
 def main():
     """Запуск игры"""
