@@ -190,3 +190,18 @@ class GameWindow:
         coin.y = -50
         
         self.coins.append(coin)
+        
+    def update_high_score(self):
+        if self.score > self.player_data['high_score']:
+            self.player_data['high_score'] = self.score
+    
+    def restart(self):
+        self.enemies = []
+        self.coins = []
+        self.score = 0
+        self.distance = 0
+        self.coins_collected = 0
+        self.lives = 3
+        self.player_x = SCREEN_WIDTH // 2 - 20
+        self.player_rect.x = self.player_x
+        self.game_over = False
