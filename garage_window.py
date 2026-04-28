@@ -4,8 +4,12 @@
 
 import tkinter as tk
 from tkinter import messagebox
-from data.car_data import CARS
-from data.save_data import SaveData
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(__file__))
+
+from data.save_data import SaveData, CARS
 
 class GarageWindow:
     """Класс гаража"""
