@@ -1,10 +1,10 @@
-"""
-Игровое окно на pygame
-"""
-
 import pygame
 import random
 import sys
+import os
+
+sys.path.insert(0, os.path.dirname(__file__))
+from data.save_data import CARS
 
 # Константы
 SCREEN_WIDTH = 600
@@ -39,13 +39,13 @@ class GameWindow:
         
         # Получаем текущую машину
         self.current_car = None
-        for car in player_data['cars']:
+        for car in CARS:
             if car['id'] == player_data['current_car']:
                 self.current_car = car
                 break
         
         if not self.current_car:
-            self.current_car = player_data['cars'][0]
+            self.current_car = CARS[0]
         
         # Игрок
         self.player_x = SCREEN_WIDTH // 2 - 20
