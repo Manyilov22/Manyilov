@@ -25,7 +25,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    screen.blit(text, (50, 100))
-  
-    pygame.display.flip()
-pygame.quit()
