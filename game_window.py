@@ -205,3 +205,67 @@ class GameWindow:
         self.player_x = SCREEN_WIDTH // 2 - 20
         self.player_rect.x = self.player_x
         self.game_over = False
+        
+    def draw(self):
+        self.screen.fill(ROAD_COLOR)
+        
+        road_left = SCREEN_WIDTH // 2 - ROAD_WIDTH // 2
+        road_right = SCREEN_WIDTH // 2 + ROAD_WIDTH // 2
+        
+        pygame.draw.rect(self.screen, GRAY, (road_left, 0, ROAD_WIDTH, SCREEN_HEIGHT))
+        
+        for i in range(0, SCREEN_HEIGHT, 50):
+            center_x = SCREEN_WIDTH // 2
+            pygame.draw.line(self.screen, WHITE, (center_x, i), (center_x, i + 30), 3)
+        
+        pygame.draw.line(self.screen, WHITE, (road_left, 0), (road_left, SCREEN_HEIGHT), 2)
+        pygame.draw.line(self.screen, WHITE, (road_right, 0), (road_right, SCREEN_HEIGHT), 2)
+        
+        for enemy in self.enemies:
+            pygame.draw.rect(self.screen, enemy.color, (enemy.x, enemy.y, 40, 70))
+        
+        for coin in self.coins:
+            pygame.draw.circle(self.screen, YELLOW, (coin.x + 12, coin.y + 12), 12)
+        
+        pygame.draw.rect(self.screen, self.current_car['color'], self.player_rect)
+        pygame.draw.rect(self.screen, YELLOW, (self.player_x + 5, self.player_y - 5, 5, 5))
+        pygame.draw.rect(self.screen, YELLOW, (self.player_x + 30, self.player_y - 5, 5, 5))
+        pygame.draw.rect(self.screen, (200, 200, 255), (self.player_x + 5, self.player_y + 10, 10, 15))
+        pygame.draw.rect(self.screen, (200, 200, 255), (self.player_x + 25, self.player_y + 10, 10, 15))
+        
+        score_text = self.font_small.render(f"Счет: {self.score}", True, WHITE)
+        self.screen.blit(score_text, (10, 10))
+        
+        coins_text = self.font_small.render(f"Монеты: {self.coins_collected}", True, YELLOW)
+        self.screen.blit(coins_text, (10, 35))
+        
+        lives_text = self.font_small.render(f"Жизни: {self.lives}", True, RED)
+        self.screen.blit(lives_text, (10, 60))
+        
+        distance_text = self.font_small.render(f"Дистанция: {int(self.distance)} м", True, WHITE)
+        self.screen.blit(distance_text, (10, 85))
+        
+        if self.game_over:
+            overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+            overlay.set_alpha(180)
+            overlay.fill(BLACK)
+            self.screen.blit(overlay, (0, 0))
+            
+            game_over_text = self.font_big.render("GAME OVER", True, RED)
+            text_rect = game_over_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
+            self.screen.blit(game_over_text, text_rect)
+            
+            score_text = self.font_small.render(f"Счет: {self.score}", True, WHITE)
+            score_rect = score_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+            self.screen.blit(score_text, score_rect)
+            
+            if self.score == self.player_data['high_score'] and self.score > 0:
+                record_text = self.font_small.render("НОВЫЙ РЕКОРД!", True, YELLOW)
+                record_rect = record_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 25))
+                self.screen.blit(record_text, record_rect)
+            
+            restart_text = self.font_small.render("Нажми R для рестарта, M для меню", True, WHITE)
+            restart_rect = restart_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 70))
+            self.screen.blit(restart_text, restart_rect)
+        
+        pygame.display.flip()
