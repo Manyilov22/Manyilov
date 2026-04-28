@@ -132,6 +132,12 @@ class GameWindow:
                 self.spawn_enemy()
 
         # Спавн монет
+        self.spawn_timer += 1
+        if self.spawn_timer > 40:
+            self.spawn_timer = 0
+            if random.random() < 0.5:
+                self.spawn_enemy()
+                
         self.coin_timer += 1
         if self.coin_timer > 30:
             self.coin_timer = 0
@@ -163,3 +169,24 @@ class GameWindow:
                 self.coins.remove(coin)
                 self.coins_collected += 10
                 self.player_data['coins'] += 10
+                
+    def spawn_enemy(self):
+        lane = random.randint(0, 2)
+        x = SCREEN_WIDTH // 2 - ROAD_WIDTH // 2 + lane * LANE_WIDTH + 5
+        
+        enemy = type('Enemy', (), {})()
+        enemy.x = x
+        enemy.y = -100
+        enemy.color = random.choice([RED, GREEN, BLUE, YELLOW])
+        
+        self.enemies.append(enemy)
+    
+    def spawn_coin(self):
+        lane = random.randint(0, 2)
+        x = SCREEN_WIDTH // 2 - ROAD_WIDTH // 2 + lane * LANE_WIDTH + 20
+        
+        coin = type('Coin', (), {})()
+        coin.x = x
+        coin.y = -50
+        
+        self.coins.append(coin)
